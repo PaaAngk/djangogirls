@@ -3,11 +3,9 @@ from .models import Post
 from django import template
 from socket import socket
 from .models import Сomments
-from .models import SubСomments
 from django.utils import timezone
 from .forms import PostForm
 from .forms import СommentsForm
-from .forms import SubСommentsForm
 from django.shortcuts import redirect
 from django.shortcuts import render, get_object_or_404
 from anytree import Node, LevelOrderIter, PreOrderIter
