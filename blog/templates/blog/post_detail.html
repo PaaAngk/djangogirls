@@ -1,4 +1,6 @@
+
 {% extends 'blog/base.html' %}
+{% load mathfilters %}
 {% block content %}
 	<div class="card">
 	    <div class="post card-body">
@@ -16,16 +18,22 @@
 	        <p class="card-text">{{ post.text|linebreaksbr }}</p>
 	    </div>
     </div>
-    <div class="card comment">
+    <div class="card">
     	<h2 class="glyphicon glyphicon-comment">Коментарии <a class="btn btn-default" href="{% url 'comment_new' pk=post.pk %}"><span class="glyphicon glyphicon-comment">Add comment</span></a></h2>
-	    {% for comment in comments %}
-		    <div class="card">		
-			    <h4 class="card-title">{{ comment.author }}</h4>      
-	            <div class="date">
-	                {{ comment.published_date }}
-	            </div>
-		        <p>{{ comment.text|linebreaksbr }}</p>
-		    </div>
+	    {% for comm in exp %}
+	    	{% if comm.levels > 0 %}	           	     
+			    <div style="margin-left: {{comm.levels|mul:2}}0px; margin-right:10px;" class="card">		
+				    <h4 class="card-title">{{ comm.author }}</h4>      
+		            <div class="date">
+		                {{ comm.published_date }}
+		            </div>
+			        <p>{{ comm.text|linebreaksbr }}</p>
+			        <a class="btn btn-default" href="{% url 'sub_comment_new' postpk=post.pk commentpk=comm.pk %}"><span class="glyphicon glyphicon-comment">Add subcomment</span></a>
+			    </div>
+			{% endif %}
 	    {% endfor %}
     </div>
 {% endblock %}
+
+Entry.objects.values_list('id', flat=True)
+Entry.objects.filter(headline__contains='Lennon').count()
